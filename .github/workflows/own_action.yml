@@ -11,5 +11,5 @@ jobs:
       - name: Lets Create a Derp!
         uses: ogie-gh/derp/notifications@main
         with:
-          prefix: "SR"
+          prefix: SR
             
