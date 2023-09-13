@@ -1,0 +1,16 @@
+name: Access my own action
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  create-derp:
+    runs-on: ubuntu-latest
+    
+      steps:
+        - name: Lets Create a Derp!
+          uses: ogie-gh/derp/notification@main
+          with:
+            prefix: "SR"
+            
