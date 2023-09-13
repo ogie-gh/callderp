@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Lets Create a Derp!
-        uses: ogie-gh/derp/notification@main
+        uses: ogie-gh/derp/notifications@main
         with:
           prefix: "SR"
             
