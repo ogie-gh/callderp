@@ -2,7 +2,6 @@ name: Access my own action
 
 on:
   workflow_dispatch:
-  push:
 
 jobs:
   create-derp:
@@ -15,6 +14,6 @@ jobs:
           prefix: TST
 
       - name: Get the output and use it
-        run: echo ${{ steps.derp.outputs.stdout }}
+        run: echo ${{ steps.derp.outputs.derp-key }}
       
-            
+          
