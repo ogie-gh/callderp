@@ -1,0 +1,27 @@
+name: Call action with matrix
+on:
+  workflow_dispatch:
+
+jobs:
+  create:
+    strategy:
+      matrix:
+        include:
+          - prefix: "TST"
+            summary: "TST Summary"
+            description: "TST Description"
+          - prefix: "ABC"
+            summary: "ABC Summary"
+            description: "ABC Description"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Let's create multiples
+        id: derp
+        uses: ogie-gh/derp/notifications@main
+        with:
+         prefix: "${{ matrix.prefix }}"
+         summary: "${{ matrix.summary }}"
+         description: "${{ matrix.description }}"
+         
+      - name: Get the output and use it
+        run: echo ${{ steps.derp.outputs.derp-key }}
