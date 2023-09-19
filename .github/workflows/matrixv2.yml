@@ -1,0 +1,23 @@
+name: Matrix V2
+on:
+  workflow_dispatch:
+
+jobs:
+  create:
+    strategy:
+      matrix:
+        include:
+          - prefix: "TST"
+          - prefix: "ABC"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Let's create multiples
+        id: derp
+        uses: ogie-gh/derp/notifications@main
+        with:
+         prefix: "${{ matrix.prefix }}"
+         summary: "Static Summary"
+         description: "Static Description"
+         
+      - name: Get the output and use it
+        run: echo ${{ steps.derp.outputs.derp-key }}
