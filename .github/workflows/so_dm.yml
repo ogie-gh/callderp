@@ -1,0 +1,26 @@
+name: populate_matrix_from_json
+
+on: workflow_dispatch
+
+jobs:
+  step1:
+    runs-on: ubuntu-latest
+
+    outputs:
+      matrix: ${{ steps.setup.outputs.matrix }}
+
+    steps:
+    - name: Setup
+      id: setup
+      env:
+        CONFIG: >-
+            {
+	            "key": key,
+	            "filename": file_path,
+	            "summary": "THIS IS A TEST",
+	            "description": "This is a test description"
+            }
+      run: echo "matrix=$(jq -r -c . <<< "$CONFIG")" >> $GITHUB_OUTPUT
+    
+    - name: Check
+      run: jq . <<< '${{ steps.setup.outputs.matrix }}'
