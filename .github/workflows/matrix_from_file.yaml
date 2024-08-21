@@ -20,9 +20,7 @@ jobs:
 
       - name: Load Matrix
         id: load-matrix
-        run: |
-          matrix=$(cat derp/config/matrix.json)
-          echo "matrix=$matrix" >> $GITHUB_ENV
+        run: echo "PACKAGE_JSON=$(jq -c . < derp/config/matrix.json)" >> $GITHUB_ENV
 
       - name: Run with matrix
-        run: echo ${{ matrix.matrix }}
+        run: echo '${{ fromJson(env.PACKAGE_JSON).version }}'
