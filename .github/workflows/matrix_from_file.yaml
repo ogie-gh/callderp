@@ -15,11 +15,14 @@ jobs:
           repository: ogie-gh/derp
           path: derp
 
-      - name: Load Matrix
-        id: load-matrix
-        run: |
-          matrix=$(cat ogie-gh/derp/config/matrix.json)
-          echo "matrix=$matrix" >> $GITHUB_ENV
+      - name: Check dir layout
+        run: ls -l
 
-      - name: Run with matrix
-        run: echo ${{ matrix.matrix }}
+      # - name: Load Matrix
+      #   id: load-matrix
+      #   run: |
+      #     matrix=$(cat derp/config/matrix.json)
+      #     echo "matrix=$matrix" >> $GITHUB_ENV
+
+      # - name: Run with matrix
+      #   run: echo ${{ matrix.matrix }}
