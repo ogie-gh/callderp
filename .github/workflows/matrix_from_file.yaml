@@ -3,24 +3,26 @@ on:
   workflow_dispatch:
 
 jobs:
-  scan-accounts:
+  configure:
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - name: Checkout this repo
-        uses: actions/checkout@v4
-
       - name: Checkout matrix repo
         uses: actions/checkout@v4
         with:
           repository: ogie-gh/derp
           path: derp
+      - name: Set Matrix
+        id: set-matrix
+        run: echo "matrix=$(jq -c . < derp/config/matrix.json)" >> $GITHUB_ENV
 
-      - name: Check dir layout
-        run: ls -l
-
-      - name: Load Matrix
-        id: load-matrix
-        run: echo "PACKAGE_JSON=$(jq -c . < derp/config/matrix.json)" >> $GITHUB_ENV
-
-      - name: Run with matrix
-        run: echo '${{ env.PACKAGE_JSON }}'
+  print:
+    runs-on: unbuntu-latest
+    needs: configure
+    strategy:
+      matrix: ${{ fromJson(needs.configure.outputs.matrix }}
+    steps:
+      - run: |
+          echo ${{ matrix.account }}
+          echo ${{ matrix.account_id }}
