@@ -23,4 +23,4 @@ jobs:
         run: echo "PACKAGE_JSON=$(jq -c . < derp/config/matrix.json)" >> $GITHUB_ENV
 
       - name: Run with matrix
-        run: echo '${{ fromJson(env.PACKAGE_JSON).version }}'
+        run: echo '${{ env.PACKAGE_JSON }}'
