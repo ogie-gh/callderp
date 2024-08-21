@@ -18,11 +18,11 @@ jobs:
       - name: Check dir layout
         run: ls -l
 
-      # - name: Load Matrix
-      #   id: load-matrix
-      #   run: |
-      #     matrix=$(cat derp/config/matrix.json)
-      #     echo "matrix=$matrix" >> $GITHUB_ENV
+      - name: Load Matrix
+        id: load-matrix
+        run: |
+          matrix=$(cat derp/config/matrix.json)
+          echo "matrix=$matrix" >> $GITHUB_ENV
 
-      # - name: Run with matrix
-      #   run: echo ${{ matrix.matrix }}
+      - name: Run with matrix
+        run: echo ${{ matrix.matrix }}
