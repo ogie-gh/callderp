@@ -1,0 +1,30 @@
+name: Matrix from External JSON file
+on:
+  workflow_dispatch:
+
+jobs:
+  scan-accounts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout this repo
+        uses: actions/checkout@v4
+
+      - name: Checkout matrix repo
+        uses: actions/checkout@v4
+        with:
+          repository: ogie-gh/derp
+          path: derp
+
+      - name: Load Matrix
+        id: load-matrix
+        run: |
+          matrix=$(cat ogie-gh/main/config/matrix.json)
+          echo "matrix=$matrix" >> $GITHUB_ENV
+
+      - name: Run with matrix
+        run: echo ${{ matrix.matrix }}
+        strategy:
+          matrix: ${{ fromJson(env.matrix) }}
+        steps:
+          - name: Print matrix info
+            run: echo "Account: ${{ matrix.account }}, Account ID: ${{ matrix.account_id }}"
