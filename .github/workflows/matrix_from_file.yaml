@@ -5,7 +5,7 @@ jobs:
   configure:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix_json }}
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - name: Checkout matrix repo
         uses: actions/checkout@v4
@@ -15,21 +15,13 @@ jobs:
       - name: Set Matrix
         id: set-matrix
         run: |
-          echo "matrix=$(yq -p yaml -o json -I=0 derp/config/matrix.yaml)" >> $GITHUB_ENV
-          echo "MATRIX_YAML=$(yq -p yaml -o json -I=0 derp/config/matrix.yaml)" >> $GITHUB_ENV
-          echo "matrix_json=$(jq -c . < derp/config/matrix.json)" >> $GITHUB_ENV
-      - name: ECHO
-        run: |
-          echo $matrix
-          echo $MATRIX_YAML
-          
-
+          echo "matrix=$(jq -c . < derp/config/matrix.json)" >> $GITHUB_ENV
 
   print:
     runs-on: unbuntu-latest
     needs: configure
     strategy:
-      matrix: ${{ fromJson(needs.configure.outputs.matrix_json) }}
+      matrix: ${{ fromJson(needs.configure.outputs.matrix) }}
     steps:
       - run: |
           echo ${{ matrix.account }}
