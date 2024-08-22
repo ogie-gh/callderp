@@ -17,9 +17,11 @@ jobs:
         run: |
           echo "matrix=$(yq -p yaml -o json -I=0 derp/config/matrix.yaml)" >> $GITHUB_ENV
           echo "MATRIX_YAML=$(yq -p yaml -o json -I=0 derp/config/matrix.yaml)" >> $GITHUB_ENV
+#       run: echo "matrix=$(jq -c . < derp/config/matrix.json)" >> $GITHUB_ENV
+      - name: ECHO
+        run: |
           echo $matrix
           echo $MATRIX_YAML
-#       run: echo "matrix=$(jq -c . < derp/config/matrix.json)" >> $GITHUB_ENV
           
 
 
