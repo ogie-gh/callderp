@@ -15,7 +15,8 @@ jobs:
           path: derp
       - name: Set Matrix
         id: set-matrix
-        run: echo "matrix=$(jq -c . < derp/config/matrix.json)" >> $GITHUB_ENV
+#        run: echo "matrix=$(jq -c . < derp/config/matrix.json)" >> $GITHUB_ENV
+        run: echo "matrix=$(yq -p yaml -o json derp/config/matrix.yaml)" >> $GITHUB_ENV
 
   print:
     runs-on: unbuntu-latest
