@@ -16,7 +16,7 @@ jobs:
        id: set-matrix
        run: echo "matrix=$(jq -c . < derp/config/matrix.json)" >> $GITHUB_OUTPUT
      - name: ECHO
-       run: echo $matrix
+       run: echo ${{ env.$matrix }}
 
   print:
     runs-on: ubuntu-latest
