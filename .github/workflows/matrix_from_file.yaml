@@ -5,7 +5,7 @@ jobs:
   configure:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      matrix: ${{ steps.set-matrix.outputs.matrix_json }}
     steps:
       - name: Checkout matrix repo
         uses: actions/checkout@v4
