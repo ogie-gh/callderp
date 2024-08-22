@@ -17,7 +17,7 @@ jobs:
         run: |
           echo "matrix=$(yq -p yaml -o json -I=0 derp/config/matrix.yaml)" >> $GITHUB_ENV
           echo "MATRIX_YAML=$(yq -p yaml -o json -I=0 derp/config/matrix.yaml)" >> $GITHUB_ENV
-#       run: echo "matrix=$(jq -c . < derp/config/matrix.json)" >> $GITHUB_ENV
+          echo "matrix_json=$(jq -c . < derp/config/matrix.json)" >> $GITHUB_ENV
       - name: ECHO
         run: |
           echo $matrix
@@ -29,7 +29,7 @@ jobs:
     runs-on: unbuntu-latest
     needs: configure
     strategy:
-      matrix: ${{ fromJson(needs.configure.outputs.matrix) }}
+      matrix: ${{ fromJson(needs.configure.outputs.matrix_json) }}
     steps:
       - run: |
           echo ${{ matrix.account }}
