@@ -9,9 +9,12 @@ jobs:
     steps:
      - name: Checkout to repository
        uses: actions/checkout@v4
+       with:
+         repository: ogie-gh/derp
+         path: derp
      - name: Set matrix data
        id: set-matrix
-       run: echo "matrix=$(jq -c . < ./config.json)" >> $GITHUB_OUTPUT
+       run: echo "matrix=$(jq -c . < derp/config.json)" >> $GITHUB_OUTPUT
 
   print:
     runs-on: ubuntu-latest
