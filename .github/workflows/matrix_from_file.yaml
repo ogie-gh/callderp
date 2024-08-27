@@ -1,5 +1,5 @@
 name: Matrix from External YAML file
-on: [ workflow_dispatch, push ]
+on: [ workflow_dispatch ]
 
 jobs:
   configure:
