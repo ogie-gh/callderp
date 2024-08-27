@@ -13,7 +13,7 @@ jobs:
        id: set-matrix
        run: echo "matrix=$(jq -c . < ./config.json)" >> $GITHUB_OUTPUT
      - name: does it exist now?
-       run: echo $matrix
+       run: echo ${{ steps.set-matrix.outputs.matrix }}
 
   print:
     runs-on: ubuntu-latest
