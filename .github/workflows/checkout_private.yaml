@@ -1,0 +1,26 @@
+name: Checkout private
+on: workflow_dispatch
+
+jobs:
+  configure:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+     - name: Checkout to repository
+       uses: actions/checkout@v4
+       with:
+         repository: ogie-gh/derp
+     - name: Set matrix data
+       id: set-matrix
+       run: echo "matrix=$(yq -p yaml -o json -I=0 config/matrix.yaml)" >> $GITHUB_OUTPUT
+     - name: Debug matrix output
+       run: echo "${{ steps.set-matrix.outputs.matrix }}"
+
+  print:
+    runs-on: ubuntu-latest
+    needs: configure
+    strategy:
+      matrix: ${{ fromJson(needs.configure.outputs.matrix) }}
+    steps:
+     - run: echo ${{ matrix.name }}
