@@ -1,0 +1,13 @@
+name : test echo matrix
+on: 
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set environment variable
+        run: echo "greeting=hello" >> $GITHUB_ENV
+
+      - name: Check environment variable
+        run: echo $greeting
